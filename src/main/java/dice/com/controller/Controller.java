@@ -20,4 +20,10 @@ public class Controller {
     public ResponseEntity<String> fetchForecastByLocation(@RequestParam("location") String location){
         return service.fetchForecastByLocation(location);
     }
+
+
+    @GetMapping(path = "/ofLocationByHourly", produces = "application/json")
+    public ResponseEntity<String> fetchHourlyForecastByLocation(@RequestParam("location") String location){
+        return service.fetchHourlyForecastByLocation(location);
+    }
 }

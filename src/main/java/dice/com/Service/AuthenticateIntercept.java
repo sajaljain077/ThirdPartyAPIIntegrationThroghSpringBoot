@@ -21,7 +21,6 @@ public class AuthenticateIntercept extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String clientId = request.getHeader("client_id");
         String clientSecret = request.getHeader("client_secret");
-        System.out.println("Akash rajwar");
         if(clientId==null||!clientId.equalsIgnoreCase("abc") || clientSecret==null||!clientSecret.equalsIgnoreCase("xyz")){
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType("application/json");

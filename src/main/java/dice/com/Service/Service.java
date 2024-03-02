@@ -10,5 +10,5 @@ public interface Service {
 
     public ResponseEntity<String> fetchForecastByLocation(String location);
 
-    public ResponseEntity<Map<String, String>> fetchHourlyForecastByLocation(String location);
+    public ResponseEntity<String> fetchHourlyForecastByLocation(String location);
 }
