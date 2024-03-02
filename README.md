@@ -32,14 +32,15 @@ The service will be accessible at `http://localhost:8085`.
 
 To use the Weather Forecast Service, make HTTP requests to the provided API endpoints.
 
-```bash
-# Get Forecast by Location (Hourly)
-curl http://localhost:8085/dice/api/weatherSummary/ofLocationByHourly?location=Delhi
+## API Endpoints
 
-# Get Forecast by Location
-curl http://localhost:8085/dice/api/weatherSummary/ofLocation?location=Delhi
+Get Forecast by Location (Hourly)
+    curl http://localhost:8085/dice/api/weatherSummary/ofLocationByHourly?location=Delhi
+
+Get Forecast by Location
+    curl http://localhost:8085/dice/api/weatherSummary/ofLocation?location=Delhi
 
 ## Configuration
-Make following changes in the application.properties file
-server.port=8085
-server.servlet.context-path = /dice/api
+Make follwoing changes in the application.properties file
+    server.port=8085
+    server.servlet.context-path = /dice/api
