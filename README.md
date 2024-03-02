@@ -10,8 +10,6 @@ The Weather Forecast Service is a Java Spring Boot project that provides two API
 - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
 - [Configuration](#configuration)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Installation
 
@@ -40,3 +38,8 @@ curl http://localhost:8085/dice/api/weatherSummary/ofLocationByHourly?location=D
 
 # Get Forecast by Location
 curl http://localhost:8085/dice/api/weatherSummary/ofLocation?location=Delhi
+
+## Configuration
+Make following changes in the application.properties file
+server.port=8085
+server.servlet.context-path = /dice/api
