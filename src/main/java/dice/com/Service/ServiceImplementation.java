@@ -1,29 +1,39 @@
 package dice.com.Service;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @org.springframework.stereotype.Service
 public class ServiceImplementation implements Service {
 
+    @Value("${weather.api.key}")
+    private String apiKey;
 
-    @Override
+    @Value("${weather.api.host}")
+    private String apiHost;
+   @Override
     public ResponseEntity<String> fetchForecastByLocation(String location) {
         try {
             OkHttpClient client = new OkHttpClient();
-
             Request request = new Request.Builder()
                     .url("https://forecast9.p.rapidapi.com/rapidapi/forecast/"+location+"/summary/")
                     .get()
-                    .addHeader("X-RapidAPI-Key", "2634411aa1msh226b236ff14a520p14d60ejsn16afa65fad49")
-                    .addHeader("X-RapidAPI-Host", "forecast9.p.rapidapi.com")
+                    .addHeader("X-RapidAPI-Key", apiKey)
+                    .addHeader("X-RapidAPI-Host", apiHost)
                     .build();
 
             Response response = client.newCall(request).execute();
@@ -56,8 +66,8 @@ public class ServiceImplementation implements Service {
             Request request = new Request.Builder()
                     .url("https://forecast9.p.rapidapi.com/rapidapi/forecast/"+location+"/hourly/")
                     .get()
-                    .addHeader("X-RapidAPI-Key", "2634411aa1msh226b236ff14a520p14d60ejsn16afa65fad49")
-                    .addHeader("X-RapidAPI-Host", "forecast9.p.rapidapi.com")
+                    .addHeader("X-RapidAPI-Key", apiKey)
+                    .addHeader("X-RapidAPI-Host", apiHost)
                     .build();
 
             Response response = client.newCall(request).execute();
@@ -76,10 +86,29 @@ public class ServiceImplementation implements Service {
 //            ResponseEntity<String> responseEntity = new ResponseEntity<>(str,HttpStatus.OK);
 //            return responseEntity;
         }catch (Exception e) {
-            System.out.println("Sajal jbnvjnzb");
             ResponseEntity<String> responseEntity = new ResponseEntity<>(e.getMessage(),HttpStatus.OK);
             return responseEntity;
         }
 //        return null;
+    }
+
+
+    @Override
+    public ResponseEntity<String> loginAccount(LoginDetails loginDetails) {
+        try{
+            String email = loginDetails.getEmail();
+            if(!email.equals("abc@gmail.com")){
+                return new ResponseEntity<>("Wrong email",HttpStatus.NOT_FOUND);
+            }
+            String jwtToken = generateToken(email);
+            return new ResponseEntity<>(jwtToken, HttpStatus.OK);
+        }catch(Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Wrong User",HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public String generateToken(String emailId){
+        return Jwts.builder().claim("emailId",emailId).setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis()+20000)).signWith(SignatureAlgorithm.HS256,"asdfgh1234").compact();
     }
 }

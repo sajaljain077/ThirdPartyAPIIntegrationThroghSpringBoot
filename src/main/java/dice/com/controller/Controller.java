@@ -1,12 +1,10 @@
 package dice.com.controller;
 
+import dice.com.Service.LoginDetails;
 import dice.com.Service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -25,5 +23,10 @@ public class Controller {
     @GetMapping(path = "/ofLocationByHourly", produces = "application/json")
     public ResponseEntity<String> fetchHourlyForecastByLocation(@RequestParam("location") String location){
         return service.fetchHourlyForecastByLocation(location);
+    }
+
+    @PostMapping(path = "/login", produces = "application/json")
+    public ResponseEntity<String> login(@RequestBody LoginDetails loginDetails){
+        return service.loginAccount(loginDetails);
     }
 }

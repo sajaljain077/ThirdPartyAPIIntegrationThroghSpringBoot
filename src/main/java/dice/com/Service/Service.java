@@ -11,4 +11,6 @@ public interface Service {
     public ResponseEntity<String> fetchForecastByLocation(String location);
 
     public ResponseEntity<String> fetchHourlyForecastByLocation(String location);
+
+    ResponseEntity<String> loginAccount(LoginDetails loginDetails);
 }
